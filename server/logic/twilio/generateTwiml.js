@@ -5,7 +5,7 @@ var db = require('../../db/db.reminder'),
 var twl = {
   getTwiml: function(userid, reminderid) {
  
-    // we are going to use userid for authorization, if needed. 
+    // we are going to use userId for authorization, if needed. 
  
     var rem = db.getOne(reminderid);
     var twiml = new twilio.TwimlResponse();
@@ -26,7 +26,7 @@ var twl = {
         }).say('Thank you for using our service.', options);
     } 
     else {
-      twiml.say('What the...!', options);
+      twiml.say('Whoa, something went wrong!', options);
     }
  
     return twiml.toString();

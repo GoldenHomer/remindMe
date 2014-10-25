@@ -26,13 +26,12 @@ var scheduler = {
       remDB.updateStatus(reminder._id);
     });
  
-    job.reminderId = reminder._id; // Tag the job with a reminder ID
+    job.reminderId = reminder._id;
     return schDB.saveJob(job);
   },
  
   cancelJob: function(reminderId) {
     var jobs = schedule.scheduledJobs;
- 
     var smsJob = jobs["job_sms_" + reminderId];
     var callJob = jobs["job_call_" + reminderId];
  
