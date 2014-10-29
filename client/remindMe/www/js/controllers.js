@@ -9,10 +9,10 @@ angular.module('remindMe.controllers', [])
     };
  
     $scope.loginUser = function() {
-      $rootScope.showLoading("Authenticating..");
+      $rootScope.showLoading("Authenticating...");
       AuthFactory.login($scope.login).success(function(data) {
         SessionFactory.createSession(data.user);
-        $location.path('/home');
+        $location.path('/home'); // Redirect to home on success.
         $rootScope.hideLoading();
       }).error(function(data) {
         if (data.status == 400) {
@@ -35,7 +35,7 @@ angular.module('remindMe.controllers', [])
     };
  
     $scope.registerUser = function() {
-      $rootScope.showLoading("Registering..");
+      $rootScope.showLoading("Registering...");
       AuthFactory.register($scope.reg).success(function(data) {
         SessionFactory.createSession(data.user);
         // redirect
@@ -45,7 +45,8 @@ angular.module('remindMe.controllers', [])
         if (data.status == 400) {
           $rootScope.hideLoading();
           $rootScope.toast('Invalid Credentials');
-        } else if (data.status == 409) {
+        } 
+        else if (data.status == 409) {
           $rootScope.hideLoading();
           $rootScope.toast('A user with this username already exists');
         }
@@ -63,7 +64,7 @@ angular.module('remindMe.controllers', [])
       $rootScope.$broadcast('load-reminders');
     }, 9); // Race Condition
  
-    $scope.doRefresh = function() {
+    $scope.doRefresh = function() { // Down pull refresh
       $rootScope.$broadcast('load-reminders');
       $scope.$broadcast('scroll.refreshComplete');
     }
@@ -92,7 +93,7 @@ angular.module('remindMe.controllers', [])
     });
  
     $scope.deleteReminder = function(reminder) {
-      $rootScope.showLoading('Deleting Reminder..');
+      $rootScope.showLoading('Deleting Reminder...');
  
       ReminderFactory.delete(reminder.userId, reminder._id)
         .success(function(data) {
@@ -125,7 +126,7 @@ angular.module('remindMe.controllers', [])
     });
  
     $scope.createReminder = function() {
-      $rootScope.showLoading('Creating..');
+      $rootScope.showLoading('Creating...');
       var user = SessionFactory.getSession();
       var _r = $scope.reminder;
       var d = new Date(_r.fullDate);
