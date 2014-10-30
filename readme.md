@@ -1,1 +1,1 @@
-A reminder application in Ionic, Node and Twilio.
+A reminder mobile application using Ionic, Node and Twilio.
